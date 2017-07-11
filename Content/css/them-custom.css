@@ -1,0 +1,21 @@
+.circle-border{
+    border-radius: 8px 8px 8px 8px;
+}
+.color-html-template{
+    background-color: #9E1515;
+}
+.login-paddin{
+    padding-top: 7%;
+}
+.line-footer{
+    margin-bottom: 10px;
+    padding: 0px;
+}
+.line-heading{
+    background-color:#336699;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0px;
+}
