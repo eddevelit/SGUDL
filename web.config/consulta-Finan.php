@@ -1,8 +1,8 @@
+
 <?php
- 
  include 'conection.php';
 
-$consulta="SELECT * FROM alumnosgeneral where NOMCAR = 'FINANZAS'";
+$consulta="SELECT * FROM alumnosgeneral where NOMCAR = 'Finanzas'";
 $resultado = mysqli_query($con,$consulta);
 
 if(!$resultado){

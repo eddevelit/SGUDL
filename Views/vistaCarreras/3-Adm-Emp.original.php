@@ -45,18 +45,21 @@ include '../requiere.php';
                 var table = $("#alumnos").DataTable({
                         "ajax":{
                             "method":"POST",
-                            "url":"../../web.config/consulta-Finan.php"
+                            "url":"../../web.config/consulta-Adm.php"
                         },
                         "columns":[
                             {"data":"MATRICULA"},
                             {"data":"ALUMNO"},
                             {"data":"GRUPO"},
+                            {"data":"EDAD"},
+                            {"data":"DELEGACION"},
+                            {"data":"ESCPROC"},
                             {"data":"CICLO"},
                             {"data":"MATERIA"},
                             {"data":"CALFINAL"}
                         ]
                 });
-            } 
+            }
 	</script>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -162,15 +165,15 @@ include '../requiere.php';
     </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper bg-green">
+  <div class="content-wrapper bg-yellow">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1 class="text-center">
-        Finanzas
+      <h1 class="text-center " style"font-family:Serif ">
+        Licenciatura en administración de empresas
         <small></small>
       </h1>
     </section>
-    <hr style="width: 67%" >
+     <hr style="width: 67%" >
     <!-- Start page -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
@@ -242,34 +245,40 @@ include '../requiere.php';
               <i class="ion ion-clipboard"></i>
               <h3 class="box-title">Todo los Alumnos</h3>
               <table id="alumnos" class="display" cellspacing="0" width="100%">
-                  <thead>
+                 <thead>
                       <tr>
                           <th>Matricula</th>
                           <th>Alumno</th>
                           <th>GRUPO</th>
-                          <th>Ciclo</th>
+                          <th>Edad</th>
+                           <th>Delegacion</th>
+                          <th>Escuela de Procedencia</th>
+                          <th>Cliclo</th>
                           <th>Materia</th>
                           <th>Calificación</th>
                       </tr>
                   </thead>
                   <tfoot>
                       <tr>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                           <th></th>
-                          <th></th>
+                          <th>Matricula</th>
+                          <th>Alumno</th>
+                          <th>GRUPO</th>
+                          <th>Edad</th>
+                           <th>Delegacion</th>
+                          <th>Escuela de Procedencia</th>
+                          <th>Cliclo</th>
+                          <th>Materia</th>
+                          <th>Calificación</th>
                       </tr>
                   </tfoot>
                   <tbody>
                       <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                          <td>#</td>
+                          <td>#</td>
+                          <td>#</td>
+                          <td>#</td>
+                          <td>#</td>
+                          <td>#</td>
                       </tr>
                   </tbody>
               </table>
@@ -286,12 +295,10 @@ include '../requiere.php';
       <div class="row">
         <!-- right col (We are only adding the ID to make the widgets sortable)-->
         <section class="col-lg-12 connectedSortable">
+
           <!-- Map box -->
           <div class="box box-solid bg-light-blue-gradient">
             <div class="box-header">
-            <!-- start php -->
-          
-               <!-- endphp -->
               <!-- tools box -->
               <!--<div class="pull-right box-tools">
                 <button type="button" class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="Date range">
@@ -300,24 +307,26 @@ include '../requiere.php';
                   <i class="fa fa-minus"></i></button>
               </div>-->
               <!-- /. tools -->
-              <i class="glyphicon glyphicon-education"></i>
+              <i class="ion ion-clipboard"></i>
               <h3 class="box-title">
-                  Mapa curricular
+                Mapa curricular
+
               </h3>
             </div>
             <div class="box-body">
-              <form action="" method="post">
+               <form action="" method="post">
                     <div class=" form-group pull-right" >
                         <div class="col-md-6">
-                          <input type="text" name="txtbus" class="form-control" placeholder ="Matricula">
+                          <input type="text" name="txtbus" class="form-control" placeholder ="no Control">
                         </div>
                           <div class="col-md-6">
                         <button type="submit" name="btn1" value="Buscar" class="btn btn-primary pull-center"><i class="glyphicon glyphicon-search"></i> Buscar alumno</button>
                         </div>
                       </div>
                     </form>
-              <div id="#" style="height: 250px; width: 100%;">
-                   <table class="table table-hover">
+                <div id="#" style="height: 250px; width: 100%;">
+                <div class="knob-label">
+                    <table class="table table-hover">
                       <thead>
                             <th>Matricula</th>
                             <th>Nombre</th>
@@ -326,7 +335,7 @@ include '../requiere.php';
                             <th>Materias Faltantes</th>
                             <th>Grupo</th>
                       </thead>
-                              <?php
+                               <?php
                                   if(isset($_POST["btn1"])){
                                     $btn=$_POST["btn1"];
                                     $bus=$_POST["txtbus"];
@@ -339,18 +348,14 @@ include '../requiere.php';
                                               $filaR1=array();
                                               $filaC2=array();
                                               //segundo print
-                                              $jConteo=0;
                                               $result_array = array();//numero de materias cursadas
                                               $j=0;
                                               $i=0;
-                                              //                           $jConteo=0;
-                                              //                             $sentenciaConteo = "SELECT MATERIA FROM alumnosgeneral where MATRICULA = '$bus'";
-                                              //                                 if(!($resultado = @mysqli_query($con, $sentenciaConteo))) 
-                                              //                                 { echo "<p>Error al ejecutar la sentencia <b>$sentenciaConteo</b>: "
-                                              //                                 . mysqli_error($con); echo '</p>'; exit; }
-                                              //                                 while($filaConteo =  mysqli_fetch_array($resultado, MYSQLI_NUM)) { 
-
-                                              $conte = "SELECT MATERIA FROM alumnosgeneral where MATRICULA = '$bus'";
+                                 
+                                                                     
+                                                  // Entrega en numero de materias cursadas- entraga el valor para la table avance
+                                                 $jConteo=0;
+                                                $conte = "SELECT MATERIA FROM alumnosgeneral where MATRICULA = '$bus'";
 
                                                 if(!($contResultado = @mysqli_query($con, $conte))) 
                                                 { echo "<p>Error al ejecutar la sentencia <b>$conte</b>: "
@@ -360,12 +365,10 @@ include '../requiere.php';
                                                   $conteotab[$jConteo]=$conteotabl;
                               
                                                }
-
-                                              //                                     $jConteo++;
-                                              //                                   $arrayConteo[$j]=$filaConteo;
-              
+                                              // Calcula en numero de maerias 
+                                              //  Entrega campo para la primera vista de alumno, datos personales 
                                               //  }
-                     
+                                
 
                                               $sentencia = "SELECT * FROM alumnosgeneral where matricula = '$bus'";
                                                   if(!($resultado = @mysqli_query($con, $sentencia))) 
@@ -373,10 +376,12 @@ include '../requiere.php';
                                                   . mysqli_error($con); echo '</p>'; exit; }
                                                   while($fila = mysqli_fetch_assoc($resultado)) { 
                                                    echo "<tr>";
-                                                              $reg=  $fila['ALUMNO'];
+                                                   //if($fila<>"" or $fila){
+                                                              $reg=  utf8_encode($fila['ALUMNO']);
                                                               $reg1= $fila['MATRICULA'];
                                                               $reg2= $fila['NOMCAR'];
                                                               $reg3= $fila['GRUPO'];
+                                                    //}
                                                
                                                   }
                                                   $a=" <td  class='active'>";
@@ -406,72 +411,82 @@ include '../requiere.php';
                             <!-- Aplicadas en las celdas (<td> o <th>) -->
                             </tr>
                           </tbody>
-                      </table>
-            </div>
+                    </table>
+              </div>
             <!-- /.box-body-->
-             <!--Materias cursadas-->
+            <!--Materias cursadas-->
             <div class="box-footer no-border">
               <div class="row">
                 <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
                   <div class="knob-label">
-                   <table class="table table-hover"><h3>Materias Cursadas</h3>
-                    <thead>
-                          <th>Materia</th>
-                    </thead>
-                        <tbody>
-                          <!-- Aplicadas en las celdas (<td> o <th>) -->
-                             <?php
+                    <table class="table table-hover"><h3>Materias Cursadas</h3>
+                      <thead>
+                            <th>Materia</th>
+                      </thead>
+                      <tbody>
+                        <!-- Aplicadas en las celdas (<td> o <th>) -->
+                        <?php
                                 $a=" <td  class='active'>";
                                 $aa=" <td  class='success'>";
                                 $b="</td>";
+
+
                                 if(isset($_POST["btn1"])){
                                   $btn=$_POST["btn1"];
                                   $bus=$_POST["txtbus"];
                                   if($btn=="Buscar"){
-                                                $NumMatCur=0;
+                                               $NumMatCurs=0;
                                                 $contadorM=0;
                                                 $array_materias=array();
                                                 $array_temp=array();
-                                                $jMer=0;
-                                                $sentencia = "SELECT MATERIA FROM alumnosgeneral where MATRICULA = '$bus'";
-
+                                                $sentencia = "SELECT MATERIA FROM alumnosgeneral where MATRICULA = '$bus' ";
+                                                if(!($resultado = @mysqli_query($con, $sentencia))) 
+                                                { echo "<p>Error al ejecutar la sentencia <b>$sentencia</b>: "
+                                                . mysqli_error($con); echo '</p>'; exit; }
+                                                while($MateriaFetch =  mysqli_fetch_array($resultado, MYSQLI_NUM)) { 
+                                                   $contadorM++;
+                                                  $array_materias[$contadorM]=$MateriaFetch;
+                                                  echo count($array_materias);
+                                                  echo $result_array[1];
+                                               }
+                                               $jMer=0;
+                                               $sentencia = "SELECT MATERIA FROM alumnosgeneral where MATRICULA = '$bus'";
                                                 if(!($resultado = @mysqli_query($con, $sentencia))) 
                                                 { echo "<p>Error al ejecutar la sentencia <b>$sentencia</b>: "
                                                 . mysqli_error($con); echo '</p>'; exit; }
                                                 while($fila =  mysqli_fetch_array($resultado, MYSQLI_NUM)) { 
                                                   $jMer++;
                                                   $result_array[$jMer]=$fila;
+                                                  $NumMatCurs= count( $result_array);
                                                   $tr = "<tr>";
                                                   $trc="</tr>";
                                                   echo $tr.$aa;
                                                   echo utf8_encode($fila[0]);
                                                   echo $b.$trc;
                                                }
-                                                $NumMatCur= count($result_array); 
-                                                 echo"<h3 id='coutMaterias'>";
-                                                   echo $NumMatCur;
-                                                 echo"</h3><hr>";                         
+                                             echo "<h3>";
+                                                echo $NumMatCurs;
+                                             echo "</h3> <hr>";                         
                                           }
                                       }
                               ?>
-                        </tbody>
+                      </tbody>
                     </table>
                   </div>
                 </div>
                 <!-- ./col -->
-                <!--Materias reprobadas-->
                 <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
                   <div id="#"></div>
-                  <div class="knob-label">
-                    <table class="table table-hover"><h3>Materias reprobadas</h3>
-                    <thead>
-                          <th>Materia</th>
-                          <th>Cuatrimestre</th>
-                    </thead>
+                    <div class="knob-label">
+                      <table class="table table-hover"><h3>Materias por cursar</h3>
+                        <thead>
+                              <th>Materia</th>
+                        </thead>
                         <tbody>
                           <!-- Aplicadas en las celdas (<td> o <th>) -->
                           <tr>
                                <?php
+                              //echo"  <hr>";
                                   if(isset($_POST["btn1"])){
                                     $btn=$_POST["btn1"];
                                     $bus=$_POST["txtbus"];
@@ -479,39 +494,29 @@ include '../requiere.php';
                                                 $r=0;
                                                 $jR=0;
                                                 $NumMatRepro=0;
-                                                
-                                                $aaa=" <td  class='danger'>";
-                                                $tr = "<tr>";
-                                                $trc="</tr>";
+                                                  $tr = "<tr>";
+                                                  $trc="</tr>";
+                                                  $aaa=" <td  class='danger'>";
                                                    
                                                 $array_Rep= array();
-                                                $sentenciaR = "SELECT materia FROM alumnosgeneral where matricula = '$bus' and calfinal <=5.9";
-                                                //$SentenciaS = "";
-
+                                              $sentenciaR = "SELECT materia FROM alumnosgeneral where matricula = '$bus' and calfinal <=5";
                                                 if(!($resultadoR = @mysqli_query($con, $sentenciaR))) 
                                                 { echo "<p>Error al ejecutar la sentencia <b>$sentenciaR</b>: "
                                                 . mysqli_error($con); echo '</p>'; exit; }
-                                                 echo"<thead>";
+                                                 echo" <thead>";
+                              
                                                 while($filaRep =  mysqli_fetch_array($resultadoR, MYSQLI_NUM)) { 
                                                   $jR++;
                                                   $array_Rep[$jR]=$filaRep;
-                                                 $NumMatRepro = count($array_Rep);
-                                                $SentenciaS = "SELECT semestre_materia FROM materias where nombre_materia = '$filaRep[0]'";
-                                                 if(!($resultadoS = @mysqli_query($con, $SentenciaS))) 
-                                                 { 
-                                                  echo "<p>Error al ejecutar la sentencia <b>$SentenciaS</b>: ". mysqli_error($con); echo '</p>'; exit; 
-                                                 }
-                                                 $filaSemRep =  mysqli_fetch_array($resultadoS, MYSQLI_NUM);
+                                                  $NumMatRepro= count($array_Rep);
+                                                
                                                   echo $tr.$aaa;
                                                   echo utf8_encode($filaRep[0]);
-                                                  echo $b;
-                                                  echo $aaa;
-                                                  echo $filaSemRep[0];
                                                   echo $b.$trc;
                                                }
                                                echo "<h3>";
                                                 echo $NumMatRepro;
-                                               echo "</h3> <hr>" ;
+                                             echo "</h3> <hr>"; 
                                                if( $NumMatRepro==0)
                                                 {
                                                    echo $tr.$aaa;
@@ -529,21 +534,19 @@ include '../requiere.php';
                   </div>
                 </div>
                 <!-- ./col -->
-                <!--Materias por cursar-->
                 <div class="col-xs-4 text-center">
                   <div id="#"></div>
                   <div class="knob-label">
                    <table class="table table-hover"><h3>Materias por cursar</h3>
                     <thead>
                           <th>Materia</th>
-                          <th>Cuatrimestre</th>
                     </thead>
                         <tbody>
                           <!-- Aplicadas en las celdas (<td> o <th>) -->
                           <tr>
-                             <?php
+                              <?php
                              // header('cotent-type:application/json; charset=utf-8');
-    
+                  
                                 if(isset($_POST["btn1"])){
                                   $btn=$_POST["btn1"];
                                   $bus=$_POST["txtbus"];
@@ -552,8 +555,8 @@ include '../requiere.php';
                                                 $contadorM=0;
                                                 $array_materias=array();
                                                 $array_temp=array();
-                                                $sentenciaM = "SELECT nombre_materia  FROM materias where (id_materia like 'F%') ";
-                                               
+                                              //  echo
+                                                $sentenciaM = "SELECT DescMateria FROM materias where (Clave like 'A%') ";
                                                 if(!($resultado = @mysqli_query($con, $sentenciaM))) 
                                                 { echo "<p>Error al ejecutar la sentencia <b>$sentenciaM</b>: "
                                                 . mysqli_error($con); echo '</p>'; exit; }
@@ -568,6 +571,7 @@ include '../requiere.php';
                                                $TamañoJ =count($array_juice);
                                                 $t=0;
                                                 $inic=0;
+                                               // echo " <td>";
                                                 for ($t=$inic ; $t<=$TamañoJ; $t++){                                            
                                                 $tr = "<tr>";
                                                 $trc="</tr>";
@@ -576,33 +580,40 @@ include '../requiere.php';
                                       $j2=0;
                                       $i2=0;
                                       $var_temp='';
-                                      $consultaR="SELECT nombre_materia FROM materias where (id_materia like 'F%') ";
+                                      $consultaR="SELECT DescMateria FROM materias where (Clave like 'A%') ";
                                       $resultadoR = mysqli_query($con,$consultaR);
                                       while ($filaR = mysqli_fetch_array($resultadoR, MYSQLI_NUM)) {  
-                                        //Se guardan los valores de la consulta de la materia en tabla materias
+                                        
                                         $filaR1[$j2]= $filaR;
                                          $j2++;
                                         }
+                                        //echo count($filaR1);
                                         $con1=0;
                                         $con2=0;
                                         $consultaC = "SELECT MATERIA FROM alumnosgeneral where MATRICULA = '$bus'";
                                         $resultadoC = mysqli_query($con,$consultaC);
                                         while ($filaC = mysqli_fetch_array($resultadoC, MYSQLI_NUM)) {
+                                         //  $arreglo[$con1][]=$data;
                                           $con1++;
                                           $con2++;
                                           $mas ="";
                                           $mas = $filaC[0];
+                                          
+                                                                                        // echo  $mas;
+                                                                                        // echo"<br> <hr>";
+                                                                                        // print_r($filaC);
+                                                                                        // echo"<br> <hr>";
                                           $filaC2[$i2]= $filaC;
                                            $i2++;
                                         }
-                                        $inic = count($filaC2);
-                                        //Se comparan los arreglos 
-                                        $result_arrayTo= array_diff_key($filaR1,$filaC2);
-                                         $Tamaño =count($result_arrayTo);
-                                         //Se imprime el total de materias por cursar 
-                                          echo "<h3>";
+                                        //$inic= count($filaC);
+                                          $inic = count($filaC2);
+                                         // echo $inic ;
+                                          $result_arrayTo= array_diff_key($filaR1,$filaC2);
+                                          $Tamaño =count($result_arrayTo);
+                                           echo "<h3>";
                                                 echo $Tamaño;
-                                          echo "</h3> <hr>";
+                                            echo "</h3> <hr>";
                                           $t=0;
                                           $tconteo=0;
                                           $inic++;
@@ -612,22 +623,10 @@ include '../requiere.php';
                                            echo $tr.$aa; 
                                            $varte=array();
                                             //print_r(json_encode($result_arrayTo[$t])) ; imprime los que no tiene acentos
-                                           //varte contiene las materias a cursar depues de la comparacion 
                                            $varte = array_map("utf8_encode", $result_arrayTo[$t]); 
                                            //print_r($result_arrayTo[$t]); si funciona
                                            // print_r( $varte );// si funciona pero le falta  jsonencode
-                                           $compara = utf8_decode($varte[0]);
-                                           $SentenciaS = "SELECT semestre_materia FROM materias where nombre_materia = '$compara'";
-                                           if(!($resultadoS = @mysqli_query($con, $SentenciaS))) 
-                                           { 
-                                            echo "<p>Error al ejecutar la sentencia <b>$SentenciaS</b>: ". mysqli_error($con); echo '</p>'; exit; 
-                                           }
-                                           $filaSemRep =  mysqli_fetch_array($resultadoS, MYSQLI_NUM);
-                                           //Se imprimen las variables a cursar
                                             echo $varte[0];
-                                            echo $b;
-                                            echo $aa;
-                                            echo $filaSemRep[0];
                                             //echo $varte;
                                              //echo json_encode($varte); //impreme con valores Auditor\u00eda 
                                              echo $b.$trc;             
@@ -638,16 +637,17 @@ include '../requiere.php';
                          
                           </tr>
                         </tbody>
-                    </table>
-                  </div>
-                </div>
+                      </table>
+                   </div>
+                 </div>
+                <!-- ./col -->
+                
                 <!-- ./col -->
               </div>
               <!-- /.row -->
             </div>
           </div>
           <!-- /.box -->
-
           <!-- solid sales graph -->
         </section>
         <!-- right col -->

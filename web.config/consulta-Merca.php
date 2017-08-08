@@ -2,7 +2,7 @@
  
  include 'conection.php';
 
-$consulta="SELECT * FROM alumnosgeneral";
+$consulta="SELECT * FROM alumnosgeneral where NOMCAR = 'Mercadotecnia'";
 $resultado = mysqli_query($con,$consulta);
 
 if(!$resultado){

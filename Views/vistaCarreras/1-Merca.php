@@ -38,6 +38,7 @@ include '../requiere.php';
    <script type="text/javascript" class="init">
           $(document).ready(function() {
             listarA();
+             $('#reprobadas').DataTable();
         } );
             var listarA = function(){
                 var table = $("#alumnos").DataTable({
@@ -49,9 +50,6 @@ include '../requiere.php';
                             {"data":"MATRICULA"},
                             {"data":"ALUMNO"},
                             {"data":"GRUPO"},
-                            {"data":"EDAD"},
-                            {"data":"DELEGACION"},
-                            {"data":"ESCPROC"},
                             {"data":"CICLO"},
                             {"data":"MATERIA"},
                             {"data":"CALFINAL"}
@@ -60,8 +58,13 @@ include '../requiere.php';
               //      var marcur = $(document).getElementbyid('coutMaterias');
               // $(docment).getElementbyId('marcur').inneHtml = marcur;
             }
-
 	</script>
+  <script type="text/javascript">
+    $(document).submit(function() {
+             $('#reprobadas').DataTable();
+        } );
+  </script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -250,25 +253,19 @@ include '../requiere.php';
                           <th>Matricula</th>
                           <th>Alumno</th>
                           <th>GRUPO</th>
-                          <th>Edad</th>
-                           <th>Delegacion</th>
-                          <th>Escuela de Procedencia</th>
-                          <th>Cliclo</th>
+                          <th>Ciclo</th>
                           <th>Materia</th>
                           <th>Calificación</th>
                       </tr>
                   </thead>
                   <tfoot>
                       <tr>
-                          <th>Matricula</th>
-                          <th>Alumno</th>
-                          <th>GRUPO</th>
-                          <th>Edad</th>
-                           <th>Delegacion</th>
-                          <th>Escuela de Procedencia</th>
-                          <th>Cliclo</th>
-                          <th>Materia</th>
-                          <th>Calificación</th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
                       </tr>
                   </tfoot>
                   <tbody>
@@ -460,11 +457,19 @@ include '../requiere.php';
                 <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
                   <div id="#"></div>
                   <div class="knob-label">
-                    <table class="table table-hover"><h3>Materias reprobadas</h3>
+                    <table id = "reprobadas" class="table table-hover display"><h3>Materias reprobadas</h3>
                     <thead>
+                          <tr>
                           <th>Materia</th>
                           <th>Cuatrimestre</th>
+                          </tr>
                     </thead>
+                  <tfoot>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                  </tfoot>
                         <tbody>
                           <!-- Aplicadas en las celdas (<td> o <th>) -->
                           <tr>
@@ -482,7 +487,7 @@ include '../requiere.php';
                                                 $trc="</tr>";
                                                    
                                                 $array_Rep= array();
-                                                $sentenciaR = "SELECT materia FROM alumnosgeneral where matricula = '$bus' and calfinal <=5";
+                                                $sentenciaR = "SELECT materia FROM alumnosgeneral where matricula = '$bus' and calfinal <=5.9";
                                                 //$SentenciaS = "";
 
                                                 if(!($resultadoR = @mysqli_query($con, $sentenciaR))) 
@@ -493,13 +498,17 @@ include '../requiere.php';
                                                   $jR++;
                                                   $array_Rep[$jR]=$filaRep;
                                                  $NumMatRepro = count($array_Rep);
-                                                // $SentenciaS = "SELECT semestre_materia FROM materias where nombre_materia = '$filaRep[0]'";
-                                                 //if(!($resultadoS = @mysqli_query($con, $sentenciaS))) 
-                                                 //{ 
-                                                  //echo "<p>Error al ejecutar la sentencia <b>$SentenciaS</b>: ". mysqli_error($con); echo '</p>'; exit; 
-                                                 //}
+                                                $SentenciaS = "SELECT semestre_materia FROM materias where nombre_materia = '$filaRep[0]'";
+                                                 if(!($resultadoS = @mysqli_query($con, $SentenciaS))) 
+                                                 { 
+                                                  echo "<p>Error al ejecutar la sentencia <b>$SentenciaS</b>: ". mysqli_error($con); echo '</p>'; exit; 
+                                                 }
+                                                 $filaSemRep =  mysqli_fetch_array($resultadoS, MYSQLI_NUM);
                                                   echo $tr.$aaa;
                                                   echo utf8_encode($filaRep[0]);
+                                                  echo $b;
+                                                  echo $aaa;
+                                                  echo $filaSemRep[0];
                                                   echo $b.$trc;
                                                }
                                                echo "<h3>";
@@ -609,8 +618,18 @@ include '../requiere.php';
                                            $varte = array_map("utf8_encode", $result_arrayTo[$t]); 
                                            //print_r($result_arrayTo[$t]); si funciona
                                            // print_r( $varte );// si funciona pero le falta  jsonencode
+                                           $compara = utf8_decode($varte[0]);
+                                           $SentenciaS = "SELECT semestre_materia FROM materias where nombre_materia = '$compara'";
+                                           if(!($resultadoS = @mysqli_query($con, $SentenciaS))) 
+                                           { 
+                                            echo "<p>Error al ejecutar la sentencia <b>$SentenciaS</b>: ". mysqli_error($con); echo '</p>'; exit; 
+                                           }
+                                           $filaSemRep =  mysqli_fetch_array($resultadoS, MYSQLI_NUM);
                                            //Se imprimen las variables a cursar
                                             echo $varte[0];
+                                            echo $b;
+                                            echo $aa;
+                                            echo $filaSemRep[0];
                                             //echo $varte;
                                              //echo json_encode($varte); //impreme con valores Auditor\u00eda 
                                              echo $b.$trc;             

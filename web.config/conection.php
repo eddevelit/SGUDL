@@ -1,7 +1,7 @@
 <?php 
 // datos para la coneccion a mysql 
 define('DB_SERVER','localhost'); 
-define('DB_NAME','sg_udl'); 
+define('DB_NAME','sgudl'); 
 define('DB_USER','root'); 
 define('DB_PASS',''); 
 

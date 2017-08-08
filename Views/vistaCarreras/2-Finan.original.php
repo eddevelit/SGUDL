@@ -51,6 +51,9 @@ include '../requiere.php';
                             {"data":"MATRICULA"},
                             {"data":"ALUMNO"},
                             {"data":"GRUPO"},
+                            {"data":"EDAD"},
+                            {"data":"DELEGACION"},
+                            {"data":"ESCPROC"},
                             {"data":"CICLO"},
                             {"data":"MATERIA"},
                             {"data":"CALFINAL"}
@@ -247,29 +250,35 @@ include '../requiere.php';
                           <th>Matricula</th>
                           <th>Alumno</th>
                           <th>GRUPO</th>
-                          <th>Ciclo</th>
+                          <th>Edad</th>
+                           <th>Delegacion</th>
+                          <th>Escuela de Procedencia</th>
+                          <th>Cliclo</th>
                           <th>Materia</th>
                           <th>Calificación</th>
                       </tr>
                   </thead>
                   <tfoot>
                       <tr>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                           <th></th>
-                          <th></th>
+                          <th>Matricula</th>
+                          <th>Alumno</th>
+                          <th>GRUPO</th>
+                          <th>Edad</th>
+                           <th>Delegacion</th>
+                          <th>Escuela de Procedencia</th>
+                          <th>Cliclo</th>
+                          <th>Materia</th>
+                          <th>Calificación</th>
                       </tr>
                   </tfoot>
                   <tbody>
                       <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                          <td>#</td>
+                          <td>#</td>
+                          <td>#</td>
+                          <td>#</td>
+                          <td>#</td>
+                          <td>#</td>
                       </tr>
                   </tbody>
               </table>
@@ -409,109 +418,134 @@ include '../requiere.php';
                       </table>
             </div>
             <!-- /.box-body-->
-             <!--Materias cursadas-->
             <div class="box-footer no-border">
               <div class="row">
                 <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
                   <div class="knob-label">
                    <table class="table table-hover"><h3>Materias Cursadas</h3>
-                    <thead>
-                          <th>Materia</th>
-                    </thead>
-                        <tbody>
-                          <!-- Aplicadas en las celdas (<td> o <th>) -->
-                             <?php
-                                $a=" <td  class='active'>";
-                                $aa=" <td  class='success'>";
-                                $b="</td>";
+                        <thead>
+                              <th>Materia</th>
+                              <th>Clave</th>
+                             
+        
+                        </thead>
+                            <tbody>
+                              <!-- Aplicadas en las celdas (<td> o <th>) -->
+                             
+                                     <?php
                                 if(isset($_POST["btn1"])){
                                   $btn=$_POST["btn1"];
                                   $bus=$_POST["txtbus"];
                                   if($btn=="Buscar"){
-                                                $NumMatCur=0;
+                                                $numMartCur=0;
                                                 $contadorM=0;
                                                 $array_materias=array();
                                                 $array_temp=array();
-                                                $jMer=0;
-                                                $sentencia = "SELECT MATERIA FROM alumnosgeneral where MATRICULA = '$bus'";
-
+                                              //   $sentencia = "SELECT DescMateria FROM materias where creditos = 'AE0120' ";
+                                              //   if(!($resultado = @mysqli_query($con, $sentencia))) 
+                                              //   { echo "<p>Error al ejecutar la sentencia <b>$sentencia</b>: "
+                                              //   . mysqli_error($con); echo '</p>'; exit; }
+                                              //   while($MateriaFetch =  mysqli_fetch_array($resultado, MYSQLI_NUM)) { 
+                                              //      $contadorM++;
+                                              //     $array_materias[$contadorM]=$MateriaFetch;
+                                              //     echo count($array_materias);
+                                              //     echo "hola mundo";
+                                              //     echo $result_array[1];
+                                              //     // $re2=$filaa;
+                                              //     // $re2=  $filaR1[$i];
+                                              //     // echo " <br>$re2[0]";
+                                              //     //$dato =$filaC[$j];
+                                              //    // print($filaR1);
+                                              //    //echo $dato;
+                                              //     //echo json_decode($fila[$j]);      
+                                              // //';
+                                              //  }
+                                              //  echo
+                                               $sentencia = "SELECT MATERIA FROM alumnosgeneral where MATRICULA = '$bus'";
                                                 if(!($resultado = @mysqli_query($con, $sentencia))) 
                                                 { echo "<p>Error al ejecutar la sentencia <b>$sentencia</b>: "
                                                 . mysqli_error($con); echo '</p>'; exit; }
                                                 while($fila =  mysqli_fetch_array($resultado, MYSQLI_NUM)) { 
-                                                  $jMer++;
-                                                  $result_array[$jMer]=$fila;
+                                                  $j++;
+                                                  $result_array[$j]=$fila;
+                                                //  echo " <br>$re1";
+                                                  //print_r(array_values($fila[1]));
+                                                 // echo"<br>";
+                                                  //echo "$aa $reg3 $b ";
                                                   $tr = "<tr>";
                                                   $trc="</tr>";
                                                   echo $tr.$aa;
                                                   echo utf8_encode($fila[0]);
                                                   echo $b.$trc;
+                                                  //echo count($result_array);
+                                                  //print_r($result_array);
+                                                  //echo json_encode($result_array [$j])  ;
+                                                  //$dato =$filaC[$j];
+                                                  //echo($fila[$j]);
+                                                  //echo $dato;
+                                                  //echo json_decode($fila[$j]);    
+                                                  //';
                                                }
-                                                $NumMatCur= count($result_array); 
-                                                 echo"<h3 id='coutMaterias'>";
-                                                   echo $NumMatCur;
-                                                 echo"</h3><hr>";                         
+                                                $numMartCur =count($result_array);
+                                                echo "<h3>";
+                                                echo $numMartCur;
+                                                echo "</h3>";
+                                                echo"  <hr>";
+                                               // echo count($result_array);
+                                           //print $filaC[2];
+                                    
                                           }
                                       }
                               ?>
-                        </tbody>
-                    </table>
+                          </tbody>
+                      </table>
+
                   </div>
                 </div>
                 <!-- ./col -->
-                <!--Materias reprobadas-->
                 <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
                   <div id="#"></div>
                   <div class="knob-label">
-                    <table class="table table-hover"><h3>Materias reprobadas</h3>
-                    <thead>
-                          <th>Materia</th>
-                          <th>Cuatrimestre</th>
-                    </thead>
-                        <tbody>
+                      <table class="table table-hover"><h3>Materias reprobadas</h3>
+                      
+                  
                           <!-- Aplicadas en las celdas (<td> o <th>) -->
-                          <tr>
-                               <?php
+                           <?php
+                              //echo"  <hr>";
                                   if(isset($_POST["btn1"])){
                                     $btn=$_POST["btn1"];
                                     $bus=$_POST["txtbus"];
                                     if($btn=="Buscar"){
                                                 $r=0;
-                                                $jR=0;
                                                 $NumMatRepro=0;
-                                                
-                                                $aaa=" <td  class='danger'>";
+                                                $jR=0;
                                                 $tr = "<tr>";
-                                                $trc="</tr>";
+                                                  $trc="</tr>";
+                                                   $aaa=" <td  class='danger'>";
                                                    
                                                 $array_Rep= array();
-                                                $sentenciaR = "SELECT materia FROM alumnosgeneral where matricula = '$bus' and calfinal <=5.9";
-                                                //$SentenciaS = "";
-
+                                              $sentenciaR = "SELECT materia FROM alumnosgeneral where matricula = '$bus' and calfinal <=5";
                                                 if(!($resultadoR = @mysqli_query($con, $sentenciaR))) 
                                                 { echo "<p>Error al ejecutar la sentencia <b>$sentenciaR</b>: "
                                                 . mysqli_error($con); echo '</p>'; exit; }
-                                                 echo"<thead>";
+                                                 echo" <thead>";
+                                                 // echo  count($array_Rep);
+                                                     echo"<th>Materia</th>
+                                                          </thead>
+                                                              <tbody>";
                                                 while($filaRep =  mysqli_fetch_array($resultadoR, MYSQLI_NUM)) { 
                                                   $jR++;
                                                   $array_Rep[$jR]=$filaRep;
-                                                 $NumMatRepro = count($array_Rep);
-                                                $SentenciaS = "SELECT semestre_materia FROM materias where nombre_materia = '$filaRep[0]'";
-                                                 if(!($resultadoS = @mysqli_query($con, $SentenciaS))) 
-                                                 { 
-                                                  echo "<p>Error al ejecutar la sentencia <b>$SentenciaS</b>: ". mysqli_error($con); echo '</p>'; exit; 
-                                                 }
-                                                 $filaSemRep =  mysqli_fetch_array($resultadoS, MYSQLI_NUM);
+                                                $NumMatRepro= count($array_Rep);
+                                                  
                                                   echo $tr.$aaa;
                                                   echo utf8_encode($filaRep[0]);
-                                                  echo $b;
-                                                  echo $aaa;
-                                                  echo $filaSemRep[0];
                                                   echo $b.$trc;
                                                }
-                                               echo "<h3>";
+                                              
+                                                echo "<h3>";
                                                 echo $NumMatRepro;
-                                               echo "</h3> <hr>" ;
+                                                echo "</h3> <hr>";
                                                if( $NumMatRepro==0)
                                                 {
                                                    echo $tr.$aaa;
@@ -522,29 +556,24 @@ include '../requiere.php';
                                            //  mysqli_close($con); //cerrar conexion
                                         }
                                 ?>
-                         
-                          </tr>
                         </tbody>
                     </table>
                   </div>
                 </div>
                 <!-- ./col -->
-                <!--Materias por cursar-->
                 <div class="col-xs-4 text-center">
                   <div id="#"></div>
                   <div class="knob-label">
                    <table class="table table-hover"><h3>Materias por cursar</h3>
-                    <thead>
-                          <th>Materia</th>
-                          <th>Cuatrimestre</th>
-                    </thead>
-                        <tbody>
-                          <!-- Aplicadas en las celdas (<td> o <th>) -->
-                          <tr>
+                      <thead>
+                            <th>Materia</th>
+                      </thead>
+                      <tbody>
+                            <!-- Aplicadas en las celdas (<td> o <th>) -->
+                            <tr>
                              <?php
                              // header('cotent-type:application/json; charset=utf-8');
-    
-                                if(isset($_POST["btn1"])){
+                               if(isset($_POST["btn1"])){
                                   $btn=$_POST["btn1"];
                                   $bus=$_POST["txtbus"];
                                   if($btn=="Buscar"){
@@ -552,8 +581,8 @@ include '../requiere.php';
                                                 $contadorM=0;
                                                 $array_materias=array();
                                                 $array_temp=array();
-                                                $sentenciaM = "SELECT nombre_materia  FROM materias where (id_materia like 'F%') ";
-                                               
+                                              //  echo
+                                                $sentenciaM = "SELECT DescMateria FROM materias where (Clave like 'F%') ";
                                                 if(!($resultado = @mysqli_query($con, $sentenciaM))) 
                                                 { echo "<p>Error al ejecutar la sentencia <b>$sentenciaM</b>: "
                                                 . mysqli_error($con); echo '</p>'; exit; }
@@ -568,6 +597,7 @@ include '../requiere.php';
                                                $TamañoJ =count($array_juice);
                                                 $t=0;
                                                 $inic=0;
+                                               // echo " <td>";
                                                 for ($t=$inic ; $t<=$TamañoJ; $t++){                                            
                                                 $tr = "<tr>";
                                                 $trc="</tr>";
@@ -576,33 +606,41 @@ include '../requiere.php';
                                       $j2=0;
                                       $i2=0;
                                       $var_temp='';
-                                      $consultaR="SELECT nombre_materia FROM materias where (id_materia like 'F%') ";
+                                      $consultaR="SELECT DescMateria FROM materias where (Clave like 'F%') ";
                                       $resultadoR = mysqli_query($con,$consultaR);
                                       while ($filaR = mysqli_fetch_array($resultadoR, MYSQLI_NUM)) {  
-                                        //Se guardan los valores de la consulta de la materia en tabla materias
+                                        
                                         $filaR1[$j2]= $filaR;
                                          $j2++;
                                         }
+                                        //echo count($filaR1);
                                         $con1=0;
                                         $con2=0;
                                         $consultaC = "SELECT MATERIA FROM alumnosgeneral where MATRICULA = '$bus'";
                                         $resultadoC = mysqli_query($con,$consultaC);
                                         while ($filaC = mysqli_fetch_array($resultadoC, MYSQLI_NUM)) {
+                                         //  $arreglo[$con1][]=$data;
                                           $con1++;
                                           $con2++;
                                           $mas ="";
                                           $mas = $filaC[0];
+                                          
+                                                                                        // echo  $mas;
+                                                                                        // echo"<br> <hr>";
+                                                                                        // print_r($filaC);
+                                                                                        // echo"<br> <hr>";
                                           $filaC2[$i2]= $filaC;
                                            $i2++;
                                         }
-                                        $inic = count($filaC2);
-                                        //Se comparan los arreglos 
-                                        $result_arrayTo= array_diff_key($filaR1,$filaC2);
-                                         $Tamaño =count($result_arrayTo);
-                                         //Se imprime el total de materias por cursar 
-                                          echo "<h3>";
+                                        //$inic= count($filaC);
+                                          $inic = count($filaC2);
+                                         // echo $inic ;
+                                          $result_arrayTo= array_diff_key($filaR1,$filaC2);
+                                          $Tamaño =count($result_arrayTo);
+                                            echo "<h3>";
                                                 echo $Tamaño;
-                                          echo "</h3> <hr>";
+                                            echo "</h3> <hr>";
+                                
                                           $t=0;
                                           $tconteo=0;
                                           $inic++;
@@ -612,22 +650,10 @@ include '../requiere.php';
                                            echo $tr.$aa; 
                                            $varte=array();
                                             //print_r(json_encode($result_arrayTo[$t])) ; imprime los que no tiene acentos
-                                           //varte contiene las materias a cursar depues de la comparacion 
                                            $varte = array_map("utf8_encode", $result_arrayTo[$t]); 
                                            //print_r($result_arrayTo[$t]); si funciona
                                            // print_r( $varte );// si funciona pero le falta  jsonencode
-                                           $compara = utf8_decode($varte[0]);
-                                           $SentenciaS = "SELECT semestre_materia FROM materias where nombre_materia = '$compara'";
-                                           if(!($resultadoS = @mysqli_query($con, $SentenciaS))) 
-                                           { 
-                                            echo "<p>Error al ejecutar la sentencia <b>$SentenciaS</b>: ". mysqli_error($con); echo '</p>'; exit; 
-                                           }
-                                           $filaSemRep =  mysqli_fetch_array($resultadoS, MYSQLI_NUM);
-                                           //Se imprimen las variables a cursar
                                             echo $varte[0];
-                                            echo $b;
-                                            echo $aa;
-                                            echo $filaSemRep[0];
                                             //echo $varte;
                                              //echo json_encode($varte); //impreme con valores Auditor\u00eda 
                                              echo $b.$trc;             
@@ -635,8 +661,7 @@ include '../requiere.php';
                                     }
                                 }
                               ?>
-                         
-                          </tr>
+                            </tr>
                         </tbody>
                     </table>
                   </div>
