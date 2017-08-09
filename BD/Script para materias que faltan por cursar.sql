@@ -1,6 +1,6 @@
 /*Tabla temporal con las materias de la carrera*/ 
 create temporary table sgudl.materiasCarrera 
-select nombre_materia from sgudl.materias where id_materia like 'A%'; 
+select nombre_materia, semestre_materia from sgudl.materias where id_materia like 'A%'; 
 select * from sgudl.materiasCarrera ;
 /*Tabla temporal con las materias que ha tomado el alumno*/
 create temporary table sgudl.materiasCursadas

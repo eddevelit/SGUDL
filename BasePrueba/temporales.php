@@ -4,7 +4,7 @@ include '../web.config/conection.php';
 
 //Creacion de tablas temporales 
 $materiasCarrera = "create temporary table sgudl.materiasCarrera 
-select nombre_materia from sgudl.materias where id_materia like 'A%';";
+select nombre_materia, semestre_materia from sgudl.materias where id_materia like 'A%';";
 if (!$con->query($materiasCarrera))
 {
     echo "Falló la creación de la tabla: (" . $con->errno . ") " . $con->error;
@@ -59,8 +59,8 @@ echo "<b>Materias por cursar</b>";
 while ($fila2 = $resultadoPorCursar->fetch_assoc()) {
 	echo "<br>";
 	echo utf8_encode($fila2['nombre_materia']);
+	echo utf8_encode($fila2['semestre_materia']);	
 }
-
  mysqli_close($con); 
 
  ?>
